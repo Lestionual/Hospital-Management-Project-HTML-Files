@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Billing</title>
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BACKGROUND */
+body::before{
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url("bg3.jpg") no-repeat center center/cover;
+    filter: blur(3px);
+    z-index: -2;
+}
+
+body::after{
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.15);
+    z-index: -1;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+}
+
+/* CONTAINER */
+.container{
+    width: 420px;
+    padding: 35px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(12px);
+
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+
+    box-shadow: 0px 15px 40px rgba(0,0,0,0.3);
+
+    text-align: center;
+
+    max-height: 90vh;
+    overflow-y: auto; /* 🔥 IMPORTANT FIX */
+}
+
+/* HEADING */
+h1{
+    color: #0a7f8f;
+    margin-bottom: 20px;
+}
+
+/* INPUT */
+input{
+    width: 100%;
+    height: 45px;
+    padding: 12px;
+    margin: 12px 0;
+
+    border-radius: 10px;
+    border: none;
+
+    background: rgba(255,255,255,0.7);
+}
+
+input:focus{
+    outline: none;
+    background: white;
+}
+
+/* BUTTON */
+button{
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+
+    background: linear-gradient(to right, #0a7f8f, #06606b);
+    color: white;
+
+    border: none;
+    border-radius: 25px;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* SUMMARY */
+.summary{
+    text-align: left;
+    margin-top: 20px;
+    padding: 12px;
+
+    background: rgba(255,255,255,0.6);
+    border-radius: 10px;
+
+    display: none; /* stays hidden initially */
+}
+
+/* AMOUNT BOX */
+.amount-box{
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    text-align: left;
+}
+
+.amount-box p{
+    margin: 8px 0;
+    font-weight: bold;
+}
+
+hr{
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 12px 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Billing</h1>
+
+    <input type="number" id="pdid" placeholder="Enter Patient-Doctor Relation ID">
+
+    <button onclick="getDetails()">Fetch Details</button>
+
+    <div id="detailsData" class="summary"></div>
+    <div id="amountData" class="amount-box" style="display:none;"></div>
+
+    <button onclick="payNow()">Pay Now</button>
+</div>
+
+<script>
+let currentPDID = null;
+
+window.onload = function(){
+    let savedPDID = localStorage.getItem("pd_id");
+    if(savedPDID){
+        document.getElementById("pdid").value = savedPDID;
+    }
+};
+
+function getDetails(){
+    let id = document.getElementById("pdid").value;
+
+    if(id === ""){
+        alert("Enter Relation ID");
+        return;
+    }
+
+    fetch("http://localhost/HOSPITAL_MANAGEMENT/get_patient_doctor_details.php?id=" + id)
+    .then(res => res.json())
+    .then(data => {
+        if(!data || !data.PD_ID){
+            document.getElementById("detailsData").innerHTML = "No record found";
+            document.getElementById("detailsData").style.display = "block";
+            document.getElementById("amountData").style.display = "none";
+            currentPDID = null;
+            return;
+        }
+
+        currentPDID = data.PD_ID;
+
+        let html = `
+            <p><strong>Relation ID:</strong> ${data.PD_ID}</p>
+            <p><strong>Patient ID:</strong> ${data.Patient_ID}</p>
+            <p><strong>Patient Name:</strong> ${data.Patient_Name}</p>
+            <p><strong>Age:</strong> ${data.Age}</p>
+            <p><strong>Gender:</strong> ${data.Gender}</p>
+            <p><strong>Phone:</strong> ${data.Phone}</p>
+            <p><strong>Address:</strong> ${data.Address}</p>
+            <hr>
+            <p><strong>Doctor ID:</strong> ${data.Doctor_ID}</p>
+            <p><strong>Doctor Name:</strong> ${data.Doctor_Name}</p>
+            <p><strong>Specialization:</strong> ${data.Specialization}</p>
+            <p><strong>Department:</strong> ${data.Department}</p>
+            <hr>
+            <p><strong>Consultation Date:</strong> ${data.Consultation_Date}</p>
+            <p><strong>Consultation Time:</strong> ${data.Consultation_Time}</p>
+            <p><strong>Problem:</strong> ${data.Problem_Description}</p>
+        `;
+
+        document.getElementById("detailsData").innerHTML = html;
+        document.getElementById("detailsData").style.display = "block"; // 🔥 FIX
+
+        let amountHtml = `
+            <p>Consultation Fee: ₹${data.Consultation_Fee}</p>
+            <p>Test Charges: ₹${data.Test_Charges}</p>
+            <p>Total Amount: ₹${data.Total_Amount}</p>
+        `;
+
+        let amountBox = document.getElementById("amountData");
+        amountBox.innerHTML = amountHtml;
+        amountBox.style.display = "block";
+    })
+    .catch(err => {
+        console.log(err);
+        alert("Error fetching details");
+    });
+}
+
+function payNow(){
+    if(currentPDID === null){
+        alert("Fetch details first");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("pd_id", currentPDID);
+
+    fetch("http://localhost/HOSPITAL_MANAGEMENT/pay_bill.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.text())
+    .then(res => {
+        alert(res);
+
+        if(res.includes("SUCCESS")){
+            document.getElementById("detailsData").innerHTML = "";
+            document.getElementById("amountData").innerHTML = "";
+            document.getElementById("amountData").style.display = "none";
+            document.getElementById("detailsData").style.display = "none";
+
+            document.getElementById("pdid").value = "";
+            currentPDID = null;
+            localStorage.removeItem("pd_id");
+
+            setTimeout(() => {
+                window.location.href = "services.html";
+            }, 1000);
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        alert("Payment failed");
+    });
+}
+</script>
+
+</body>
+</html>

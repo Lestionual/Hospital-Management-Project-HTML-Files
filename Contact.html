@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us</title>
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #e2e2e2;
+}
+
+/* NAVBAR (same style as index) */
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgb(9, 102, 102);
+    color: white;
+}
+
+.logo{
+    font-size: 22px;
+}
+
+nav ul{
+    display: flex;
+}
+
+nav ul li{
+    list-style: none;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    margin-inline: 20px;
+}
+
+/* MAIN */
+.container{
+    margin-top: 120px;
+    text-align: center;
+}
+
+.container h1{
+    color: rgb(9, 102, 102);
+    margin-bottom: 20px;
+}
+
+/* CONTACT BOX */
+.contact-box{
+    width: 400px;
+    background: white;
+    padding: 30px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+}
+
+.contact-box input,
+.contact-box textarea{
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.contact-box textarea{
+    resize: none;
+    height: 100px;
+}
+
+.contact-box button{
+    width: 100%;
+    padding: 12px;
+    background-color: rgb(9, 102, 102);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.contact-box button:hover{
+    background-color: rgb(6, 80, 80);
+}
+
+/* INFO SECTION */
+.info{
+    margin-top: 30px;
+    color: #333;
+}
+
+.info p{
+    margin: 8px 0;
+}
+
+/* FOOTER */
+.footer{
+    margin-top: 60px;
+    background-color: rgb(6, 51, 51);
+    color: white;
+    padding: 40px;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="logo">MediCare</div>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+    <h1>Contact Us</h1>
+
+    <div class="contact-box">
+        <form id="contactForm">
+            <input type="text" id="name" placeholder="Enter your name" required>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <textarea id="message" placeholder="Enter your message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+
+    <div class="info">
+        <p><strong>📍 Address:</strong> Mumbai, India</p>
+        <p><strong>📞 Phone:</strong> +91 9876543210</p>
+        <p><strong>📧 Email:</strong> support@medicare.com</p>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>© 2026 MediCare Hospital | All Rights Reserved</p>
+</div>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let message = document.getElementById("message").value.trim();
+
+    if(name === "" || email === "" || message === ""){
+        alert("Please fill all fields");
+        return;
+    }
+
+    alert("Message sent successfully!");
+    
+    // reset form
+    this.reset();
+});
+</script>
+
+</body>
+</html>

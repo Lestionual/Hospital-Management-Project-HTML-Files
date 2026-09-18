@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Choose Doctor</title>
+<style>
+body{
+    font-family: Arial;
+    background: linear-gradient(to right, #0a7f8f, #5ec6d1);
+    margin: 0;
+}
+.container{
+    width: 450px;
+    margin: 60px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+}
+h1{
+    text-align: center;
+    color: #0a7f8f;
+}
+select, input, textarea, button{
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+button{
+    background: #0a7f8f;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover{
+    background: #06606b;
+}
+#msg{
+    text-align: center;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Choose Doctor</h1>
+
+    <form id="doctorForm">
+        <select name="doctor_id" id="doctor_id" required>
+    <option value="">Select Doctor</option>
+</select>
+
+<input type="date" name="consultation_date" required>
+<input type="time" name="consultation_time" required>
+<input type="number" name="test_charges" placeholder="Enter Test Charges" min="0" value="0" required>
+<textarea name="problem_description" placeholder="Describe your problem" rows="4" required></textarea>
+
+<button type="submit">Confirm Doctor</button>
+    </form>
+
+    <p id="msg"></p>
+</div>
+
+<script>
+function loadDoctors(){
+    fetch("http://localhost/HOSPITAL_MANAGEMENT/get_doctors.php")
+    .then(res => res.json())
+    .then(data => {
+        let doctorSelect = document.getElementById("doctor_id");
+        let msgBox = document.getElementById("msg");
+
+        if (!data || data.length === 0) {
+            msgBox.style.color = "red";
+            msgBox.innerText = "No doctors available";
+            return;
+        }
+
+        data.forEach(doc => {
+            let option = document.createElement("option");
+            option.value = doc.Doctor_ID;
+            option.textContent = doc.Doctor_Name + " - " + doc.Specialization;
+            doctorSelect.appendChild(option);
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        document.getElementById("msg").style.color = "red";
+        document.getElementById("msg").innerText = "Unable to load doctors";
+    });
+}
+
+document.getElementById("doctorForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    fetch("http://localhost/HOSPITAL_MANAGEMENT/assign_doctor.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.text())
+    .then(res => {
+        let msgBox = document.getElementById("msg");
+
+        if(res.includes("SUCCESS")){
+            let pd_id = res.split(":")[1];
+            msgBox.style.color = "green";
+            msgBox.innerText = "Doctor assigned successfully! Your PD_ID is: " + pd_id;
+            localStorage.setItem("pd_id", pd_id);
+
+            setTimeout(() => {
+                window.location.href = "billing.html";
+            }, 2000);
+        } else {
+            msgBox.style.color = "red";
+            msgBox.innerText = res;
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        document.getElementById("msg").style.color = "red";
+        document.getElementById("msg").innerText = "Something went wrong";
+    });
+});
+
+loadDoctors();
+</script>
+
+</body>
+</html>

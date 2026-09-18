@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management</title>
+
+    <link rel="stylesheet" href="index.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Catamaran:wght@200&family=Courgette&family=Dancing+Script:wght@700&family=Edu+TAS+Beginner:wght@700&family=Lato:wght@300;900&family=Mukta:wght@700&family=Mulish:wght@300&family=Open+Sans&family=PT+Sans:ital,wght@1,700&family=Poppins:wght@300&family=Raleway:wght@100&family=Roboto&family=Roboto+Condensed:wght@700&family=Roboto+Slab&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/f30fac2c61.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">
+            <h1>LifeCare</h1>
+        </div>
+
+        <i id="bar" class="fa-solid fa-bars"></i>
+
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="#doctors">Doctor's</a></li>
+            <li><a href="#speciality">Speciality's</a></li>
+            <li><a href="#patient">Patient Review's</a></li>
+            <li><a href="Contact.html">Contact Us</a></li>
+        </ul>
+        <button onclick="goToLogin()" style="padding:8px 15px; background:#0a7f8f; color:white; border:none; border-radius:5px; cursor:pointer;">
+            Login
+        </button>
+        <!-- SIGN UP BUTTON -->
+        <button onclick="goToSignup()" style="padding:8px 15px; background:#0a7f8f; color:white; border:none; border-radius:5px; cursor:pointer;">
+            Sign Up
+        </button>
+    </nav>
+
+    <!-- MAIN SECTION -->
+    <div class="main">
+        <div class="mainText">
+            <h1>The Hospital that <br>Care for you</h1>
+            <h3>Best Team's</h3>
+
+            <marquee behavior="scroll" direction="left" scrollamount="6" style="margin-top:10px; color:white; font-weight:bold;">
+                We are here to take care of your health "Your Health, Our Priority"
+                <br><br>
+                24x7 Medical Support Available
+            </marquee>
+        </div>
+
+        <img src="mains.png" alt="">
+    </div>
+
+    <!-- DOCTORS -->
+    <div id="doctors">
+        <div class="head">
+            <h1>Our Doctor's</h1>
+        </div>
+
+        <div class="doctors">
+            <div class="card">
+                <img src="dt1.jpg">
+                <p>Dr Parul</p>
+                <p>Knee Surgeon</p>
+            </div>
+
+            <div class="card">
+                <img src="dt2.jpg">
+                <p>Dr Smriti</p>
+                <p>Spine Surgeon</p>
+            </div>
+
+            <div class="card">
+                <img src="dt3.jpg">
+                <p>Dr Alexa</p>
+                <p>Leg Surgeon</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SPECIALITY -->
+    <div id="speciality">
+        <div class="head">
+            <h1>Our Speciality</h1>
+        </div>
+
+        <div class="surgery">
+            <div class="surgeryCard">
+                <img src="s1.png">
+                <p>Successfully Knee Surgery</p>
+                <p>Advanced treatments for fast recovery and mobility.</p>
+            </div>
+
+            <div class="surgeryCard">
+                <img src="s2.png">
+                <p>Successfully Spine Surgery</p>
+                <p>Modern techniques for pain-free living.</p>
+            </div>
+
+            <div class="surgeryCard">
+                <img src="s3.png">
+                <p>Successfully Leg Surgery</p>
+                <p>Complete recovery with expert care.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PATIENT REVIEWS -->
+    <div id="patient">
+        <div class="head">
+            <h1>Our Patient's Review</h1>
+        </div>
+
+        <div class="patients">
+            <div class="patientCard">
+                <img src="p1.png">
+                <img src="p2.png">
+            </div>
+
+            <div class="patientCard">
+                <img src="p3.jpg">
+                <img src="p4.jpg">
+            </div>
+
+            <div class="patientCard">
+                <img src="p5.jpg">
+                <img src="p6.jpg">
+            </div>
+        </div>
+            <center><div style="text-align: center; padding: 20px; height: auto; width: 70%; background-color: white;margin-top: 22px; border-radius: 6px;">Most trusted hospital in Banswara for orthopedic care. The doctors and staff are highly skilled and compassionate, 
+            providing excellent treatment and support to patients. I had a great experience here and would recommend it to anyone 
+            in need of orthopedic care.</div></center>
+
+    </div>
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="text">
+            <h3>About Us</h3>
+            <p>24 Hours</p>
+            <p>Top Doctors</p>
+            <p>Best Care</p>
+        </div>
+
+        <div class="text">
+            <h3>Speciality</h3>
+            <p>Spine Surgery</p>
+            <p>Knee Surgery</p>
+            <p>Leg Surgery</p>
+        </div>
+
+        <div class="text">
+            <h3>Address</h3>
+            <p>Near MG Road</p>
+            <p>Banswara</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+function goToSignup(){
+    window.location.href = "signup.html";
+}
+function goToLogin(){
+    window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>

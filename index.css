@@ -1,0 +1,431 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #e2e2e2;
+}
+
+/* NAVBAR */
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgb(9, 102, 102);
+    color: white;
+    z-index: 1000;
+}
+
+ul{
+    display: flex;
+    align-items: center;
+}
+
+ul li{
+    list-style: none;
+}
+
+ul li a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    margin-inline: 20px;
+}
+
+ul li a:hover{
+    color: black;
+    border-bottom: 2px solid black;
+}
+
+.logo{
+    font-size: 22px;
+}
+
+#bar{
+    align-items: center;
+    display: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+/* MAIN SECTION */
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(15, 128, 128);
+    color: white;
+    padding: 8px;
+    min-height: 600px;
+    margin-top: 80px;
+}
+
+.mainText h1{
+    font-size: 55px;
+}
+
+.mainText h3{
+    font-size: 35px;
+    margin-top: 12px;
+}
+
+.mainText button{
+    width: 160px;
+    height: 42px;
+    border: none;
+    margin-top: 22px;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.mainText button:hover{
+    border: 2px solid black;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+.main img{
+    max-width: 100%;
+    height: auto;
+}
+
+/* SECTION HEADINGS */
+.head{
+    text-align: center;
+    padding: 80px 20px 40px;
+}
+
+/* DOCTORS */
+.doctors{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.card{
+    width: 300px;
+    height: 380px;
+    background-color: #fff;
+    border-radius: 6px;
+    margin-top: 22px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+}
+
+.card img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.card p{
+    margin-top: 11px;
+    margin-left: 11px;
+}
+
+/* SPECIALITY */
+.surgery{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.surgeryCard{
+    text-align: center;
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    margin-top: 22px;
+    border-radius: 6px;
+}
+
+.surgeryCard img{
+    width: 100px;
+}
+
+.surgeryCard p{
+    margin-top: 12px;
+}
+
+.patients{
+    width: 800px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    margin: auto;
+}
+
+.patientCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+}
+
+.patientCard:first-child{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.patientCard.active{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.patientCard img{
+    width: 350px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+@media screen and (max-width:850px){
+    .patients{
+        width: 90%;
+        height: 260px;
+    }
+
+    .patientCard img{
+        width: 45%;
+        height: 220px;
+    }
+}
+
+@media screen and (max-width:500px){
+    .patientCard{
+        gap: 10px;
+    }
+
+    .patientCard img{
+        width: 45%;
+        height: 180px;
+        margin-inline: 4px;
+    }
+}
+
+/* CONTACT */
+.contact{
+    width: 300px;
+    background-color: #fff;
+    padding: 40px;
+    margin: auto;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.contact h1{
+    color: rgb(9, 77, 77);
+}
+
+.contact input{
+    width: 90%;
+    padding: 9px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: #e2e2e2;
+    border-radius: 2px;
+    margin-top: 20px;
+}
+
+.contact button{
+    width: 90px;
+    height: 30px;
+    margin-top: 23px;
+    background-color: rgb(12, 95, 95);
+    color: white;
+    font-size: 17px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* FOOTER */
+.footer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 66px;
+    color: white;
+    margin-top: 66px;
+    background-color: rgb(6, 51, 51);
+}
+
+.text p{
+    margin-top: 12px;
+}
+
+/* POPUP CONTENT */
+.content{
+    display: none;
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    width: 500px;
+    transform: translate(-50%, 40%);
+    background-color: #fff;
+    border-radius: 11px;
+    z-index: 2000;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.3);
+}
+
+.contentDetail{
+    display: flex;
+    padding: 23px;
+    gap: 22px;
+}
+
+.contentDetail img{
+    width: 50%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.contentDetail p{
+    margin-top: 22px;
+}
+
+.content button{
+    width: 30px;
+    height: 30px;
+    background-color: rgb(9, 97, 97);
+    border: none;
+    border-radius: 3px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    margin: 10px;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width:1100px){
+    .main{
+        text-align: center;
+        display: block;
+        height: auto;
+        padding: 30px 15px;
+    }
+
+    .mainText{
+        margin-top: 115px;
+    }
+}
+
+@media screen and (max-width:900px){
+    ul{
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background-color: rgb(9, 102, 102);
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    ul.show{
+        display: flex;
+    }
+
+    ul li{
+        margin: 10px 0;
+    }
+
+    #bar{
+        display: block;
+    }
+}
+
+@media screen and (max-width:850px){
+    .patients{
+        width: 90%;
+        height: 260px;
+    }
+
+    .patientCard img{
+        width: 45%;
+        height: 220px;
+    }
+}
+
+@media screen and (max-width:600px){
+    .mainText h1{
+        font-size: 33px;
+    }
+
+    .main img{
+        width: 90%;
+    }
+
+    .content{
+        width: 90%;
+    }
+
+    .contentDetail img{
+        width: 50%;
+    }
+}
+
+@media screen and (max-width:500px){
+    .patientCard{
+        gap: 10px;
+    }
+
+    .patientCard img{
+        width: 45%;
+        height: 180px;
+        margin-inline: 4px;
+    }
+
+    .contact{
+        width: 60%;
+    }
+}
+
+@media screen and (max-width:400px){
+    .contentDetail{
+        display: block;
+        text-align: center;
+    }
+
+    .contentDetail img{
+        width: 70%;
+        height: 200px;
+    }
+
+    .contentDetail h1{
+        font-size: 22px;
+    }
+
+    .contentDetail p{
+        font-size: 15px;
+    }
+}

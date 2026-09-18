@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Book Appointment</title>
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 🔥 BACKGROUND (LESS BLUR) */
+body::before{
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url("bg2.jpg") no-repeat center center/cover;
+    filter: blur(2px); /* reduced blur */
+    z-index: -2;
+}
+
+/* 🔥 LIGHT OVERLAY */
+body::after{
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.15); /* softer */
+    z-index: -1;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+}
+
+.container{
+    width: 685px;
+    padding: 45px 40px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* 🔥 GLASS EFFECT */
+    background: rgba(255, 255, 255, 0.25);  /* transparent */
+    backdrop-filter: blur(12px);           /* glass blur */
+    -webkit-backdrop-filter: blur(12px);   /* for Safari */
+
+    border-radius: 22px;
+
+    /* 🔥 SOFT BORDER + GLOW */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    box-shadow: 
+        0px 20px 50px rgba(0,0,0,0.3),
+        inset 0px 0px 10px rgba(255,255,255,0.2);
+
+    animation: fadeIn 0.8s ease;
+}
+/* 🔥 ANIMATION */
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to{
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* 🔥 HEADING */
+h1{
+    text-align: center;
+    color: #0a7f8f;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+/* 🔥 INPUTS (SPACED + CLEAN) */
+input, select{
+    width: 100%;
+    height: 50px;
+    padding: 14px;
+    margin: 14px 0;
+
+    border-radius: 12px;
+    border: 1px solid #ddd;
+
+    background: #f7fafa;
+
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+/* 🔥 FOCUS */
+input:focus, select:focus{
+    outline: none;
+    border-color: #0a7f8f;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(10,127,143,0.25);
+}
+
+/* 🔥 BUTTON */
+button{
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+
+    background: linear-gradient(to right, #0a7f8f, #06606b);
+    color: white;
+
+    border: none;
+    border-radius: 30px;
+
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+/* 🔥 HOVER */
+button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
+}
+
+/* 🔥 SUCCESS */
+.success-msg{
+    text-align: center;
+    color: green;
+    margin-top: 10px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Book Appointment</h1>
+
+<form id="appointmentForm">
+    <input type="text" name="name" placeholder="Enter Patient Name" required>
+    <input type="text" name="address" placeholder="Enter Address" required>
+
+    <select name="gender" required>
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+    </select>
+
+    <input type="text" name="phone" placeholder="Enter Phone Number" required>
+    <input type="number" name="age" placeholder="Enter Age" required>
+
+    <input type="date" name="date" required>
+    <input type="time" name="time" required>
+
+    <button type="submit">Book Appointment</button>
+</form>
+
+<p class="success-msg" id="msg"></p>
+
+</div>
+
+<script>
+document.getElementById("appointmentForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    fetch("http://localhost/HOSPITAL_MANAGEMENT/insert_patient.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.text())
+    .then(res => {
+        document.getElementById("msg").innerText = res;
+        if(res.includes("SUCCESS")){
+    setTimeout(() => {
+        window.location.href = "choose_doctor.html";
+    }, 1000);
+}
+    })
+    .catch(err => {
+        console.log(err);
+        alert("Something went wrong.");
+    });
+});
+</script>
+
+</body>
+</html>

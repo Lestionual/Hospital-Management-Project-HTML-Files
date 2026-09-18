@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: linear-gradient(to right, #0a7f8f, #5ec6d1);
+}
+
+.container{
+    width: 400px;
+    margin: 80px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+}
+
+h2{
+    text-align: center;
+    color: #0a7f8f;
+}
+
+input{
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button{
+    width: 100%;
+    padding: 12px;
+    background: #0a7f8f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover{
+    background: #06606b;
+}
+
+#msg{
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>User Login</h2>
+
+    <form id="loginForm">
+        <input type="email" name="email" placeholder="Enter Email" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <p id="msg"></p>
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    fetch("http://localhost/HOSPITAL_MANAGEMENT/login.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.text())
+    .then(res => {
+        let msg = document.getElementById("msg");
+
+        if(res.includes("SUCCESS")){
+            msg.style.color = "green";
+            msg.innerText = "Login successful";
+
+            setTimeout(() => {
+                window.location.href = "services.html";
+            }, 1000);
+        } else {
+            msg.style.color = "red";
+            msg.innerText = res;
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        document.getElementById("msg").innerText = "Login failed";
+    });
+});
+</script>
+
+</body>
+</html>

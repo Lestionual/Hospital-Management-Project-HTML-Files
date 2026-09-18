@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Services</title>
+
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 🔥 BACKGROUND IMAGE */
+body::before{
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url("bg.jpg") no-repeat center center/cover;
+    filter: blur(4px);
+    z-index: -2;
+}
+
+/* 🔥 LIGHT OVERLAY */
+body::after{
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.2);
+    z-index: -1;
+}
+
+/* 🔥 CONTAINER (GLASS + SLIDE ANIMATION) */
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateY(50px);
+
+    width: 420px;
+    padding: 45px;
+    text-align: center;
+
+    border-radius: 25px;
+
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(15px);
+
+    box-shadow: 
+        0px 15px 40px rgba(0,0,0,0.4),
+        inset 0px 0px 20px rgba(255,255,255,0.2);
+
+    border: 1px solid rgba(255,255,255,0.3);
+
+    animation: slideUp 1s ease forwards;
+}
+
+/* 🔥 SLIDE ANIMATION */
+@keyframes slideUp{
+    from{
+        opacity: 0;
+        transform: translate(-50%, -30%);
+    }
+    to{
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* 🔥 FLOAT EFFECT */
+.container:hover{
+    transform: translate(-50%, -52%);
+    transition: 0.4s;
+}
+
+/* 🔥 HEADING */
+h1{
+    color: white;
+    font-size: 36px;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    text-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+}
+
+/* 🔥 BUTTON BASE */
+button{
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    font-size: 16px;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+/* 🔥 BOOK BUTTON */
+.book{
+    background: linear-gradient(to right, #ffffff, #dff6f8);
+    color: #0a7f8f;
+}
+
+/* 🔥 BILL BUTTON */
+.bill{
+    background: linear-gradient(to right, #063c3c, #0a7f8f);
+    color: white;
+}
+
+/* 🔥 HOVER EFFECT */
+button:hover{
+    transform: translateY(-4px);
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.4);
+}
+
+/* 🔥 CLICK EFFECT */
+button:active{
+    transform: scale(0.97);
+}
+/* FIRST BUTTON (Book Appointment) */
+.container button:first-of-type{
+    background: linear-gradient(to right, #ffffff, #dff6f8);
+    color: #0a7f8f;
+}
+
+/* SECOND BUTTON (Billing) */
+.container button:last-of-type{
+    background: linear-gradient(to right, #063c3c, #0a7f8f);
+    color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Select a Service</h1>
+
+    <!-- Appointment -->
+    <button onclick="goToAppointment()">Book Appointment</button>
+
+    <!-- Billing -->
+    <button onclick="goToBilling()">Go to Billing</button>
+</div>
+
+<script>
+function goToAppointment(){
+    window.location.href = "test.html";
+}
+
+function goToBilling(){
+    window.location.href = "billing.html";
+}
+</script>
+
+</body>
+</html>
